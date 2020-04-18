@@ -1,0 +1,22 @@
+[
+  {
+    "ParameterKey": "EnvironmentName",
+    "ParameterValue": "UdacityProject-Udagram"
+  },
+  {
+    "ParameterKey": "ApiVersion",
+    "ParameterValue": "2012-10-17"
+  },
+  {
+    "ParameterKey": "MinInstances",
+    "ParameterValue": "4"
+  },
+  {
+    "ParameterKey": "MaxInstances",
+    "ParameterValue": "4"
+  },
+  {
+    "ParameterKey": "InstanceVolumeDiskSpace",
+    "ParameterValue": "10"
+  }
+]
