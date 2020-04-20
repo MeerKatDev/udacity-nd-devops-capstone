@@ -18,18 +18,26 @@ The requirements are checked against [this rubric](https://review.udacity.com/#!
 4. Build your pipeline
 5. Test your pipeline
 
-----
+---
 
 ## Pipeline building Steps with Jenkins
 
 ### Infrastructure with CloudFormation
+
+It contains:
+
+- Two private subnets spanning two AvZones (as failsafe)
+- Two public subnets spanning two AvZones (as failsafe)
+- each pub-sn has a NatGateway with an EIP attached, connecting to the ref. private subnet
+- InternetGateway, with an Attachment to the VPC
+- Routing tables
 
 ### Kubernetes cluster
 Setting up a Cluster requires to have at least one worker node (i.e.  a working machine), in which we can have one containerized application (a pod). Four exemplary steps can be:
 1. `export dockerpath="{Docker-id}/{app-name}:{version=latest}"`
 2. Use Kubernetes to run the Docker Hub container, where the port is the one exposed by the Docker container
 ```
-  kubectl run mlapp --port=80 --image=$dockerpath
+  kubectl run {app-name} --port=80 --image=$dockerpath
 ```
 3. `kubectl get pods` (list Kubernetes pods)
 4. `kubectl port-forward deployment/{app-name} {app-port}:{exp-port}`
@@ -38,7 +46,6 @@ Setting up a Cluster requires to have at least one worker node (i.e.  a working 
 First, we need to install jenkins on our server.
 1. Set number of stages (e.g. Build/Lint/Test)
 2. Each stage has a series of steps
-
 
 ### In the Dockerfile
 In order, we can instruct it to:
