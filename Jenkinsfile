@@ -1,29 +1,22 @@
 pipeline {
   agent any
   stages {
-    stage("Build") {
+    stage('Build Image') {
       steps {
-        sh 'echo "Hello World"'
-        sh '''
-            echo "Multiline shell steps works too"
-            ls -lah
-        '''
+        sh 'docker build --tag=hello .'
       }
     }
 
-    stage("Lint HTML") {
+    stage("Lint Image") {
       steps {
-        sh 'tidy -q -e *.html'
+        sh 'hadolint Dockerfile'
       }
     }
 
-    stage('Upload to AWS') {
-        steps {
-            sh 'echo "Hello World with AWS credentials"'
-            withAWS(region:'us-east-2', credentials:'aws-static') {
-              s3Upload(pathStyleAccessEnabled:true, payloadSigningEnabled: true, file:'index.html', bucket:'1585936218')
-            }
-        }
+    stage('Push Image') {
+      steps {
+        sh './scripts/upload_docker.sh'
+      }
     }
   }
 }
